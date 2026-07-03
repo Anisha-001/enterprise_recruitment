@@ -1,0 +1,94 @@
+{
+    "name": "enterprise/recruitment-system",
+    "description": "Enterprise Recruitment & Applicant Tracking System",
+    "type": "project",
+    "keywords": ["laravel", "filament", "recruitment", "ats", "hrms"],
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "guzzlehttp/guzzle": "^7.9",
+        "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.10",
+        "livewire/livewire": "^3.5",
+        "filament/filament": "^3.2",
+        "filament/spatie-laravel-media-library-plugin": "^3.2",
+        "filament/spatie-laravel-tags-plugin": "^3.2",
+        "filament/spatie-laravel-settings-plugin": "^3.2",
+        "spatie/laravel-permission": "^6.10",
+        "spatie/laravel-activitylog": "^4.9",
+        "spatie/laravel-medialibrary": "^11.12",
+        "spatie/laravel-query-builder": "^6.3",
+        "spatie/laravel-sluggable": "^3.7",
+        "maatwebsite/excel": "^3.1",
+        "barryvdh/laravel-dompdf": "^3.1",
+        "laravel/cashier": "^15.6",
+        "laravel/scout": "^10.13",
+        "laravel/horizon": "^5.31",
+        "laravel/telescope": "^5.6",
+        "predis/predis": "^2.3",
+        "mews/captcha": "^3.4",
+        "joelbutcher/socialstream": "^6.3"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.24",
+        "laravel/pail": "^1.2",
+        "laravel/pint": "^1.21",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5",
+        "pestphp/pest": "^3.7",
+        "pestphp/pest-plugin-laravel": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php artisan storage:link --ansi"
+        ],
+        "test": "pest",
+        "test:unit": "pest --filter=Unit",
+        "test:feature": "pest --filter=Feature",
+        "test:coverage": "pest --coverage --min=80",
+        "format": "pint",
+        "format:check": "pint --test"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

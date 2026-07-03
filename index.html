@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Recruitment System - Documentation Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid.js for Diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+    </script>
+    
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        pre, code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1e1b4b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .print-full-width {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 antialiased">
+    
+    <!-- Header/Navigation Bar -->
+    <header class="no-print sticky top-0 z-40 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
+        <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md shadow-brand-500/20">
+                    E
+                </div>
+                <div>
+                    <span class="text-lg font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">Enterprise Recruitment System</span>
+                    <span class="hidden md:inline-block ml-2 px-2 py-0.5 text-xs font-semibold bg-brand-50 dark:bg-brand-950/50 text-brand-700 dark:text-brand-300 rounded border border-brand-100 dark:border-brand-900/50">Core documentation v1.0</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Search input container -->
+                <div class="relative w-64 hidden sm:block">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="text" id="global-search" oninput="searchDocumentation()" placeholder="Search sections..." class="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-white" />
+                </div>
+                
+                <!-- Dark mode toggle -->
+                <button onclick="toggleDarkMode()" class="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition" aria-label="Toggle dark mode">
+                    <svg id="sun-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M16.242 12.242a4 4 0 11-5.656 0 4 4 0 015.656 0z"/></svg>
+                    <svg id="moon-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="no-print w-64 flex-shrink-0 hidden lg:block sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-6 border-r border-slate-200 dark:border-slate-800">
+            <nav class="space-y-1.5" id="sidebar-nav">
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Sections</div>
+                
+                <a href="#executive-summary" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-brand-600 dark:text-brand-400 bg-brand-50/50 dark:bg-brand-900/10">1. Executive Summary</a>
+                <a href="#project-overview" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">2. Project Overview</a>
+                <a href="#folder-structure" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">3. Folder Structure</a>
+                <a href="#application-architecture" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">4. Application Architecture</a>
+                <a href="#request-lifecycle" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">5. Request Lifecycle</a>
+                <a href="#route-analysis" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">6. Route Analysis</a>
+                <a href="#controllers" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">7. Controllers</a>
+                <a href="#models" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">8. Models</a>
+                <a href="#database-analysis" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">9. Database Analysis</a>
+                <a href="#services" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">10. Services</a>
+                <a href="#repositories" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">11. Repositories</a>
+                <a href="#authentication" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">12. Authentication</a>
+                <a href="#authorization" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">13. Authorization</a>
+                <a href="#business-workflows" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">14. Business Workflows</a>
+                <a href="#frontend" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">15. Frontend</a>
+                <a href="#backend" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">16. Backend</a>
+                <a href="#file-upload-flow" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">17. File Upload Flow</a>
+                <a href="#email-flow" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">18. Email Flow</a>
+                <a href="#api-documentation" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">19. API Documentation</a>
+                <a href="#configuration-files" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">20. Configuration Files</a>
+                <a href="#dependencies" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">21. Dependencies</a>
+                <a href="#security" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">22. Security</a>
+                <a href="#performance" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">23. Performance</a>
+                <a href="#deployment" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">24. Deployment</a>
+                <a href="#full-project-flow" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">25. Full Project Flow</a>
+                <a href="#code-walkthrough" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">26. Code Walkthrough</a>
+                <a href="#business-explanation" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">27. Business Explanation</a>
+                <a href="#interview-questions" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">28. Interview Questions</a>
+                <a href="#possible-improvements" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">29. Possible Improvements</a>
+                <a href="#final-summary" class="sidebar-link block px-3 py-1.5 text-sm font-medium rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50">30. Final Summary</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:max-w-[calc(100%-16rem)] lg:pl-8 space-y-16 print-full-width" id="documentation-content">
+            
+            <!-- SECTION 1: Executive Summary -->
+            <section id="executive-summary" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">1. Executive Summary</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">High-level strategic briefing designed for a non-technical Chief Executive Officer.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="text-lg leading-relaxed">
+                        This system is a robust, end-to-end <strong>Enterprise Recruitment & Applicant Tracking System (ATS)</strong> designed to digitize, unify, and accelerate the organization's hiring processes. It resolves core inefficiencies in modern talent acquisition—such as fragmented recruiter communication, slow candidate vetting, administrative overhead in scheduling interviews, and manual tracking of offer extensions.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                The Business Problem
+                            </h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Traditional recruitment involves siloed workflows where applications arrive via email, feedback is scattered across chat apps, and offers are manually drafted. This leads to longer cycles, lost candidates, and lack of transparency into department hiring limits and costs.
+                            </p>
+                        </div>
+                        <div class="p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                The Solution & Outcome
+                            </h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                A centralized platform providing a public-facing Careers Portal for candidates alongside an advanced administrative back-office for HR teams. By automating screening, scheduling, offer version control, and auditing, the platform slashes time-to-hire, secures personal data, and provides department hiring analytics.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-5 bg-gradient-to-r from-brand-50 to-brand-100/50 dark:from-slate-900 dark:to-slate-800/50 border border-brand-100 dark:border-slate-700 rounded-xl">
+                        <h4 class="font-bold text-slate-900 dark:text-white mb-2">Target User Personas</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                            <li class="flex items-center space-x-2 bg-white dark:bg-slate-800 p-2.5 rounded border border-slate-200 dark:border-slate-700">
+                                <span class="w-2.5 h-2.5 bg-brand-500 rounded-full"></span>
+                                <span>Candidates & Applicants</span>
+                            </li>
+                            <li class="flex items-center space-x-2 bg-white dark:bg-slate-800 p-2.5 rounded border border-slate-200 dark:border-slate-700">
+                                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span>
+                                <span>Recruiters & HR Administrators</span>
+                            </li>
+                            <li class="flex items-center space-x-2 bg-white dark:bg-slate-800 p-2.5 rounded border border-slate-200 dark:border-slate-700">
+                                <span class="w-2.5 h-2.5 bg-amber-500 rounded-full"></span>
+                                <span>Hiring Managers & Interviewers</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 2: Project Overview -->
+            <section id="project-overview" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">2. Project Overview</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Core software stack, runtime requirements, configuration paradigms, and environment configurations.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <h3 class="text-lg font-bold">1. Technical Stack</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <div class="text-xs text-slate-400 font-medium">Framework</div>
+                            <div class="text-lg font-bold text-slate-800 dark:text-white mt-1">Laravel 12.x</div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <div class="text-xs text-slate-400 font-medium">Runtime Environment</div>
+                            <div class="text-lg font-bold text-slate-800 dark:text-white mt-1">PHP 8.3+</div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <div class="text-xs text-slate-400 font-medium">Admin Interface</div>
+                            <div class="text-lg font-bold text-slate-800 dark:text-white mt-1">Filament 3.2</div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <div class="text-xs text-slate-400 font-medium">Data Storage</div>
+                            <div class="text-lg font-bold text-slate-800 dark:text-white mt-1">MySQL / SQLite</div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold mt-6">2. Essential Environment Configurations (`.env.example`)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-900/50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left font-bold">Key</th>
+                                    <th class="px-4 py-2 text-left font-bold">Default Value</th>
+                                    <th class="px-4 py-2 text-left font-bold">Functional Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                                <tr>
+                                    <td class="px-4 py-2 font-mono">DB_CONNECTION</td>
+                                    <td class="px-4 py-2 font-mono">mysql</td>
+                                    <td class="px-4 py-2">Specifies the database engine. In local environments it is configured to use MySQL.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-mono">FILESYSTEM_DISK_PRIVATE</td>
+                                    <td class="px-4 py-2 font-mono">s3</td>
+                                    <td class="px-4 py-2">Disk storage type for highly secure candidate files (resumes, offer PDFs).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-mono">QUEUE_CONNECTION</td>
+                                    <td class="px-4 py-2 font-mono">redis</td>
+                                    <td class="px-4 py-2">Specifies redis backend for processing asynchronous notification and activity jobs.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-mono">FEATURE_AI_SCREENING</td>
+                                    <td class="px-4 py-2 font-mono">false</td>
+                                    <td class="px-4 py-2">Toggles experimental AI features within candidate evaluation workflows.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 font-mono">RATE_LIMIT_APPLICATIONS_PER_HOUR</td>
+                                    <td class="px-4 py-2 font-mono">5</td>
+                                    <td class="px-4 py-2">Prevents public careers site abuse by enforcing limits on submissions per IP address.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 3: Folder Structure -->
+            <section id="folder-structure" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">3. Folder Structure</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Detailed directory tree outlining file locations and purpose.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p class="mb-4">The codebase consists of two root directories: <code>recruitment-system</code> (the Laravel + Filament backend) and <code>deploy-site</code> (the standalone React Career landing page).</p>
+                    
+                    <div class="p-4 bg-slate-900 text-slate-100 rounded-xl font-mono text-xs overflow-x-auto">
+                        <ul class="space-y-1">
+                            <li>📁 Enterprise_recruitment/</li>
+                            <li class="pl-4">📁 deploy-site/ <span class="text-slate-400">(Vite + React single-page Careers Portal used for demonstrations)</span></li>
+                            <li class="pl-8">📄 app.js <span class="text-slate-500">(Main React logic with mock jobs catalog representation)</span></li>
+                            <li class="pl-8">📄 package.json <span class="text-slate-500">(Dependencies config including Framer Motion & Tailwind CSS)</span></li>
+                            <li class="pl-4">📁 recruitment-system/ <span class="text-slate-400">(Laravel Backend application folder)</span></li>
+                            <li class="pl-8">📁 app/</li>
+                            <li class="pl-12">📁 Events/ <span class="text-slate-500">(Dispatched status and scheduling triggers)</span></li>
+                            <li class="pl-12">📁 Filament/ <span class="text-slate-500">(Pages & Resources mapping to Filament panels)</span></li>
+                            <li class="pl-12">📁 Http/Controllers/Careers/ <span class="text-slate-500">(Public HTTP controllers for job board)</span></li>
+                            <li class="pl-12">📁 Models/ <span class="text-slate-500">(23 Eloquent models representing tables)</span></li>
+                            <li class="pl-12">📁 Notifications/ <span class="text-slate-500">(Standard notification classes mapping to database logs)</span></li>
+                            <li class="pl-12">📁 Policies/ <span class="text-slate-500">(Candidate & Application access control policies)</span></li>
+                            <li class="pl-12">📁 Services/ <span class="text-slate-500">(Heavy business logic: Application, Interview, Offer services)</span></li>
+                            <li class="pl-8">📁 config/</li>
+                            <li class="pl-12">📄 recruitment.php <span class="text-slate-500">(Recruitment rules, stage transitions, files limits)</span></li>
+                            <li class="pl-8">📁 database/</li>
+                            <li class="pl-12">📁 migrations/ <span class="text-slate-500">(Database schema definition files)</span></li>
+                            <li class="pl-12">📁 seeders/ <span class="text-slate-500">(Users, roles and Spatie permission presets)</span></li>
+                            <li class="pl-8">📁 routes/</li>
+                            <li class="pl-12">📄 web.php <span class="text-slate-500">(Web routes mapping public job applications)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 4: Application Architecture -->
+            <section id="application-architecture" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">4. Application Architecture</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">System design, architecture layers, event patterns, and dependency injection flow.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <p class="leading-relaxed">
+                        The recruitment system adheres to a modern <strong>Service-Layer Architecture</strong> layered on top of the traditional Model-View-Controller (MVC) paradigm. The application separates request handling, validation, persistent data operations, and background event triggers.
+                    </p>
+                    
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Architecture Layering</h3>
+                        <div class="mermaid">
+                            graph TD
+                                Client[Browser / Careers Client] -->|HTTP Request| Routing[Laravel Routing: web.php]
+                                Routing -->|Direct Route| Controller[Http Controllers: Careers Application/JobController]
+                                Controller -->|Delegates to Service| Service[Service Layer: ApplicationService / JobService]
+                                Service -->|Uses Helper Service| SubService[Validation / Metrics / Notification Services]
+                                Service -->|CRUD Operations| Model[Eloquent Models]
+                                Model -->|Saves Data| DB[(Database: SQLite / MySQL)]
+                                Service -->|Dispatches Events| Event[Event Dispatcher: e.g. OfferSent]
+                                Event -->|Handles Actions| NotificationSystem[Notification System: Database Notifications]
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-md">Key Architecture Details:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                            <li><strong>Dependency Injection:</strong> Laravel service container automatically resolves helper services (e.g. <code>NotificationService</code>) injected via controller and service constructors.</li>
+                            <li><strong>Event-Driven Triggers:</strong> Decoupled actions such as scheduling an interview or changing status dispatch events (e.g. <code>InterviewScheduled</code>) which run asynchronously in queues.</li>
+                            <li><strong>Activity Auditing:</strong> Spatie's activity log model captures model actions automatically for transparency.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 5: Request Lifecycle -->
+            <section id="request-lifecycle" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">5. Request Lifecycle</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Lifecycle flow of a HTTP request from entry to response.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <p class="leading-relaxed">
+                        When a candidate submits a new application via the Careers portal, the request follows a strict sequence of validation, upload, persistence, and dispatch steps:
+                    </p>
+                    
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                        <div class="mermaid">
+                            sequenceDiagram
+                                participant Candidate as Public User (Browser)
+                                participant Route as Routing & Middleware
+                                participant Controller as ApplicationController
+                                participant Validation as ApplicationValidationService
+                                participant Service as ApplicationService
+                                participant DB as Eloquent Models / DB
+                                participant Event as Events System
+
+                                Candidate->>Route: POST /careers/apply/{slug} (Form & Files)
+                                Route->>Route: Check Rate Limits (Max 5/hr per IP)
+                                Route->>Controller: Handover request data
+                                Controller->>Service: Call submitApplication($data, $job, $files)
+                                Service->>Validation: Call validateSubmission($data, $job)
+                                Validation->>Validation: Clean empty entries & apply rules
+                                Service->>DB: Check for duplicates (within 180 days)
+                                Service->>DB: Store files (resume, photo, cover letter)
+                                Service->>DB: Save Candidate and Application records (in Transaction)
+                                Service->>Event: Dispatch ApplicationSubmitted event
+                                Service->>Controller: Return Application instance
+                                Controller->>Candidate: Redirect to GET /careers/thank-you/{app_number}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 6: Route Analysis -->
+            <section id="route-analysis" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">6. Route Analysis</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Breakdown of all application routes, middleware, and business mappings.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="text-sm">The application defines all public routes under the <code>careers</code> prefix in <code>routes/web.php</code>. Administrative access routes are registered dynamically by the Filament package under <code>/admin</code>. There are no API endpoints defined in the project.</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-900/50">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-bold">Method</th>
+                                    <th class="px-3 py-2 text-left font-bold">URI</th>
+                                    <th class="px-3 py-2 text-left font-bold">Action / Controller</th>
+                                    <th class="px-3 py-2 text-left font-bold">Middleware</th>
+                                    <th class="px-3 py-2 text-left font-bold">Auth Required</th>
+                                    <th class="px-3 py-2 text-left font-bold">Business Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 font-mono text-xs">
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/</td>
+                                    <td class="px-3 py-2">Closure (Redirect)</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Redirects homepage visitors directly to the careers portal landing view.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/careers</td>
+                                    <td class="px-3 py-2">Closure (Index rendering)</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Careers homepage: displays top featured jobs and list of active departments.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/careers/jobs</td>
+                                    <td class="px-3 py-2">JobController@index</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Lists published vacancies. Provides filters for location, type, experience.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/careers/jobs/{slug}</td>
+                                    <td class="px-3 py-2">JobController@show</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Displays detailed descriptions, requirements, benefits, and screening questions of a job.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/careers/apply/{slug}</td>
+                                    <td class="px-3 py-2">ApplicationController@create</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Renders the multi-step job application form with all required form steps.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-blue-600 dark:text-blue-400">POST</td>
+                                    <td class="px-3 py-2">/careers/apply/{slug}</td>
+                                    <td class="px-3 py-2">ApplicationController@store</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Validates and saves the job application, stores attached files, dispatches events.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-green-600 dark:text-green-400">GET</td>
+                                    <td class="px-3 py-2">/careers/thank-you/{application}</td>
+                                    <td class="px-3 py-2">ApplicationController@thankYou</td>
+                                    <td class="px-3 py-2">web</td>
+                                    <td class="px-3 py-2 text-red-500">No</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Displays success confirmation with application number to candidates.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 7: Controllers -->
+            <section id="controllers" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">7. Controllers</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Detailed code analysis of public HTTP controller handlers.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <div>
+                        <h3 class="text-lg font-bold">1. JobController</h3>
+                        <p class="text-sm">Located in <code>app/Http/Controllers/Careers/JobController.php</code>. Handles public job retrieval.</p>
+                        
+                        <details class="group mt-2 border border-slate-200 dark:border-slate-800 rounded-lg">
+                            <summary class="flex justify-between items-center p-3 font-medium cursor-pointer bg-slate-100 dark:bg-slate-900">
+                                <span>Show Source Code View</span>
+                                <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <div class="p-3">
+                                <pre><code class="language-php">class JobController extends Controller
+{
+    public function index(Request $request): View
+    {
+        $jobs = JobPosting::published()
+            ->with(['department', 'location', 'skills'])
+            ->when($request->filled('search'), fn($q) => $q->search($request->search))
+            ->when($request->filled('department'), fn($q) => $q->byDepartment($request->department))
+            ->when($request->filled('location'), fn($q) => $q->byLocation($request->location))
+            ->when($request->filled('type'), fn($q) => $q->byEmploymentType($request->type))
+            ->when($request->filled('experience'), fn($q) => $q->where('experience_level', $request->experience))
+            ->when($request->filled('arrangement'), fn($q) => $q->where('work_arrangement', $request->arrangement))
+            ->orderBy('is_featured', 'desc')
+            ->orderBy('published_at', 'desc')
+            ->paginate(12)
+            ->withQueryString();
+
+        $departments = Department::active()->orderBy('name')->get();
+        $locations = Location::active()->orderBy('city')->get();
+
+        return view('careers.jobs.index', compact('jobs', 'departments', 'locations'));
+    }
+}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold">2. ApplicationController</h3>
+                        <p class="text-sm">Located in <code>app/Http/Controllers/Careers/ApplicationController.php</code>. Handles candidate submissions.</p>
+                        
+                        <details class="group mt-2 border border-slate-200 dark:border-slate-800 rounded-lg">
+                            <summary class="flex justify-between items-center p-3 font-medium cursor-pointer bg-slate-100 dark:bg-slate-900">
+                                <span>Show Source Code View</span>
+                                <svg class="w-4 h-4 transition group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <div class="p-3">
+                                <pre><code class="language-php">class ApplicationController extends Controller
+{
+    public function store(Request $request, string $slug): RedirectResponse
+    {
+        $job = JobPosting::published()->where('slug', $slug)->firstOrFail();
+
+        try {
+            $application = $this->applicationService->submitApplication(
+                $request->all(),
+                $job,
+                [
+                    'resume' => $request->file('resume'),
+                    'cover_letter' => $request->file('cover_letter'),
+                    'photograph' => $request->file('photograph'),
+                    'documents' => $request->file('documents', []),
+                ]
+            );
+
+            return redirect()
+                ->route('careers.thank-you', ['application' => $application->application_number])
+                ->with('success', 'Your application has been submitted successfully!');
+        } catch (\App\Exceptions\DuplicateApplicationException $e) {
+            return back()->withInput()->with('error', $e->getMessage());
+        }
+    }
+}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 8: Models -->
+            <section id="models" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">8. Models</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">23 Eloquent model definitions, casts, fillable fields, and scopes.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <p class="text-sm">The application model layer relies heavily on Laravel database model conventions, Spatie sluggable/activity tracking plugins, and status mapping settings.</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-900/50">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-bold">Model</th>
+                                    <th class="px-3 py-2 text-left font-bold">Database Table</th>
+                                    <th class="px-3 py-2 text-left font-bold">Casts</th>
+                                    <th class="px-3 py-2 text-left font-bold">Active Scopes</th>
+                                    <th class="px-3 py-2 text-left font-bold">Key Relationships</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 font-mono text-xs">
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">User</td>
+                                    <td class="px-3 py-2">users</td>
+                                    <td class="px-3 py-2">password: hashed, joining_date: date, is_admin: bool</td>
+                                    <td class="px-3 py-2">active(), hrStaff()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">department, designation, managedJobs, interviewsAsInterviewer</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">JobPosting</td>
+                                    <td class="px-3 py-2">job_postings</td>
+                                    <td class="px-3 py-2">published_at: date, min_salary: decimal, show_salary: bool</td>
+                                    <td class="px-3 py-2">published(), featured(), search()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">department, designation, location, hiringManager, recruiter, skills, applications</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">Candidate</td>
+                                    <td class="px-3 py-2">candidates</td>
+                                    <td class="px-3 py-2">date_of_birth: date, expected_salary: decimal</td>
+                                    <td class="px-3 py-2">active(), notBlacklisted(), search()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">education, experiences, skills, applications, documents</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">Application</td>
+                                    <td class="px-3 py-2">applications</td>
+                                    <td class="px-3 py-2">expected_joining_date: date, rating: int, is_new: bool</td>
+                                    <td class="px-3 py-2">active(), search(), forJob()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">candidate, jobPosting, recruiter, interviews, offers, internalNotes</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">Interview</td>
+                                    <td class="px-3 py-2">interviews</td>
+                                    <td class="px-3 py-2">scheduled_date: date, duration_minutes: int</td>
+                                    <td class="px-3 py-2">upcoming(), today(), forInterviewer()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">application, candidate, jobPosting, interviewers, feedbacks</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-bold text-indigo-600 dark:text-indigo-400">Offer</td>
+                                    <td class="px-3 py-2">offers</td>
+                                    <td class="px-3 py-2">total_ctc: decimal, joining_date: date, version: int</td>
+                                    <td class="px-3 py-2">active(), pending(), expired()</td>
+                                    <td class="px-3 py-2 font-sans text-xs">application, candidate, jobPosting, department, designation, sentBy</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 mt-6">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Core Model Relationships</h3>
+                        <div class="mermaid">
+                            classDiagram
+                                User "1" --> "*" JobPosting : recruiter / manager
+                                JobPosting "1" --> "*" Application : receives
+                                Candidate "1" --> "*" Application : submits
+                                Candidate "1" --> "*" CandidateEducation : details
+                                Candidate "1" --> "*" CandidateExperience : details
+                                Application "1" --> "*" Interview : progresses via
+                                Application "1" --> "*" Offer : receives
+                                Interview "1" --> "*" InterviewFeedback : gathers
+                                Interview "*" --> "*" User : interviewers
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 9: Database Analysis -->
+            <section id="database-analysis" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">9. Database Analysis</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Full database schema, table keys, unique constraints, and ER design.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <p class="leading-relaxed">
+                        The recruitment database is designed with tight constraints to maintain relational integrity. For example, candidates are linked uniquely to job postings via unique constraints, preventing dual active submissions.
+                    </p>
+                    
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Database ER Diagram</h3>
+                        <div class="mermaid">
+                            erDiagram
+                                users {
+                                    bigint id PK
+                                    string first_name
+                                    string last_name
+                                    string email
+                                    boolean is_admin
+                                }
+                                departments {
+                                    bigint id PK
+                                    string name
+                                    string code
+                                }
+                                designations {
+                                    bigint id PK
+                                    string name
+                                    bigint department_id FK
+                                }
+                                job_postings {
+                                    bigint id PK
+                                    string title
+                                    string slug
+                                    bigint department_id FK
+                                    bigint location_id FK
+                                    string status
+                                }
+                                candidates {
+                                    bigint id PK
+                                    string candidate_number
+                                    string email
+                                    string phone
+                                }
+                                applications {
+                                    bigint id PK
+                                    string application_number
+                                    bigint candidate_id FK
+                                    bigint job_posting_id FK
+                                    string status
+                                }
+                                interviews {
+                                    bigint id PK
+                                    bigint application_id FK
+                                    date scheduled_date
+                                    time start_time
+                                }
+                                offers {
+                                    bigint id PK
+                                    string offer_number
+                                    bigint application_id FK
+                                    decimal total_ctc
+                                    string status
+                                }
+                                
+                                departments ||--o{ designations : "has many"
+                                designations ||--o{ job_postings : "has many"
+                                job_postings ||--o{ applications : "receives"
+                                candidates ||--o{ applications : "submits"
+                                applications ||--o{ interviews : "schedules"
+                                applications ||--o{ offers : "generates"
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 10: Services -->
+            <section id="services" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">10. Services</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Analysis of core business services implementing programmatic recruiter logic.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <p>All business rules exist strictly within domain services. This prevents controllers from becoming bloated.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <h4 class="font-bold text-slate-800 dark:text-white mb-2">ApplicationService</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Evaluates forms and cleans blank fields, uploads files to local or AWS S3 directories, saves Candidate records, logs timeline histories, and dispatches dynamic database notifications.
+                            </p>
+                        </div>
+                        <div class="p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                            <h4 class="font-bold text-slate-800 dark:text-white mb-2">OfferService</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Manages offer letter status transitions. Generates official PDF documents using DomPDF, tracks version history increments, and controls digital signature logging.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 11: Repositories -->
+            <section id="repositories" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">11. Repositories</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Data-access pattern representation.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <div class="p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl text-sm">
+                        <p class="font-semibold text-amber-800 dark:text-amber-400">Note on Design Pattern:</p>
+                        <p class="mt-1 text-amber-700 dark:text-amber-300 leading-relaxed">
+                            <strong>Unable to determine from source code.</strong> The Repository pattern is not implemented in this project codebase. Data access is handled directly via Eloquent models in the Controllers and Service classes.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 12: Authentication -->
+            <section id="authentication" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">12. Authentication</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Recruiter logins, session settings, and credential policies.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="leading-relaxed">
+                        The application handles user access checks using standard Laravel session configurations:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li><strong>Backend Login:</strong> Handled by Filament's default login screen (located at <code>/admin/login</code>) using the <code>web</code> session guard.</li>
+                        <li><strong>Password Hashing:</strong> Implemented via standard PHP bcrypt password encoders inside model database hooks (using <code>Hash::make()</code> on save/update).</li>
+                        <li><strong>Candidate Access:</strong> Guest-only. Applicants submit information directly and track progress via unique application numbers, avoiding the need for credentials.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 13: Authorization -->
+            <section id="authorization" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">13. Authorization</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Role matrix and Model Policies mapping administrative privileges.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p>Roles and Spatie permissions are initialized via <code>RoleAndPermissionSeeder.php</code>. Access logic is evaluated in <code>JobPolicy</code> and <code>ApplicationPolicy</code>.</p>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-900/50">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-bold">Action / Policy Method</th>
+                                    <th class="px-3 py-2 text-center font-bold">Super Admin</th>
+                                    <th class="px-3 py-2 text-center font-bold">HR Admin</th>
+                                    <th class="px-3 py-2 text-center font-bold">Recruiter</th>
+                                    <th class="px-3 py-2 text-center font-bold">Hiring Manager</th>
+                                    <th class="px-3 py-2 text-center font-bold">Interviewer</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-center font-semibold text-xs">
+                                <tr>
+                                    <td class="px-3 py-2 text-left font-mono">JobPosting: Create</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-left font-mono">JobPosting: Update</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-amber-500">Only if assigned</td>
+                                    <td class="px-3 py-2 text-amber-500">Only if assigned</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-left font-mono">Application: View Detailed</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-amber-500">Only if assigned</td>
+                                    <td class="px-3 py-2 text-amber-500">Only if assigned</td>
+                                    <td class="px-3 py-2 text-blue-500">Only if interviewing</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-left font-mono">Application: Delete</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-left font-mono">Offer: Create</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-emerald-600">✓</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                    <td class="px-3 py-2 text-amber-500">Only if assigned</td>
+                                    <td class="px-3 py-2 text-red-500">✗</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 14: Business Workflows -->
+            <section id="business-workflows" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">14. Business Workflows</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Timelines mapping the candidate and interviewer operational cycles.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Complete Candidate Hiring Lifecycle</h3>
+                        <div class="mermaid">
+                            stateDiagram-v2
+                                [*] --> NewApplication : Candidate Submits Form
+                                NewApplication --> Screening : Recruiter Reviews Profile
+                                Screening --> Shortlisted : Screening Passed
+                                Screening --> Rejected : Failed Check
+                                Shortlisted --> Interviews : Technical / Manager Rounds
+                                Interviews --> OfferPending : Feedbacks Approved
+                                Interviews --> Rejected : Interview Failed
+                                OfferPending --> OfferSent : Offer Letter Dispatched
+                                OfferSent --> OfferAccepted : Signed by Candidate
+                                OfferSent --> OfferRejected : Negotiated / Declined
+                                OfferAccepted --> Hired : Joining Date Set
+                                Hired --> [*]
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 15: Frontend -->
+            <section id="frontend" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">15. Frontend</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Blade UI components, JavaScript structures, and responsive assets.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="leading-relaxed">
+                        The frontend UI uses a dual-engine architecture:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li><strong>Careers Site:</strong> Implemented via standard Laravel Blade files, styled with Vanilla CSS and responsive Tailwind utilities. Interactive step components are initialized using custom Alpine.js templates.</li>
+                        <li><strong>Application Form:</strong> <code>create.blade.php</code> contains a dense 9-step responsive interface. Form logic manages file attachments and dynamically renders screening questions based on the selected job posting.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 16: Backend -->
+            <section id="backend" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">16. Backend</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Laravel queues, asynchronous jobs, events, and background processes.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="leading-relaxed">
+                        The system offloads resource-heavy operations to background workers:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li><strong>Queues:</strong> Integrated via Laravel Horizon. Configured to use a Redis driver to process notifications and generate PDFs without blocking the main process thread.</li>
+                        <li><strong>Events & Listeners:</strong> Model status transitions dispatch standard Laravel events. Listeners then update system metrics and record activity trail entries.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 17: File Upload Flow -->
+            <section id="file-upload-flow" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">17. File Upload Flow</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Security checks, private filesystems, and candidate resume storage paths.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <div class="mermaid">
+                        graph TD
+                            Upload[Candidate uploads Resume PDF] -->|POST Request| Validation[Validation Service Check]
+                            Validation -->|Validate extension & Max 10MB| Storage[ApplicationService Store Method]
+                            Storage -->|Private local disk / S3| FileWrite[Write to candidates/ID/resumes/]
+                            FileWrite -->|Save relative path| DBRecord[Update candidate resume_path field]
+                    </div>
+                    <p class="text-sm mt-4">
+                        For security reasons, candidate resumes and cover letters are stored on the <code>private</code> storage disk. They are located outside the public web root at <code>storage/app/private/candidates/{id}/resumes/</code>. This prevents unauthorized direct web access, requiring user authentication and policy checks to retrieve candidate files.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- SECTION 18: Email Flow -->
+            <section id="email-flow" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">18. Email Flow</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">SMTP configurations, mail templates, and notification drivers.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm leading-relaxed">
+                        <h4 class="font-bold mb-2">Notification Channel Configuration:</h4>
+                        <p>
+                            While `.env.example` defines standard mail settings (`MAIL_MAILER=sendmail`, `MAIL_HOST=smtp.enterprise.com`), the notification files in the codebase (e.g. <code>OfferLetterNotification</code>, <code>ApplicationStatusChangedNotification</code>) are configured to route notifications exclusively to the <code>['database']</code> channel. 
+                        </p>
+                        <p class="mt-2 text-xs font-semibold text-slate-500">
+                            No active mail dispatchers or custom SMTP layouts are used in the codebase. Notifications are logged to the database and read via admin panels.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 19: API Documentation -->
+            <section id="api-documentation" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">19. API Documentation</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">External endpoints, JSON structures, and REST API controllers.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <div class="p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl text-sm text-amber-700 dark:text-amber-300">
+                        <strong>Unable to determine from source code.</strong> The <code>routes/api.php</code> file does not exist, and no REST API endpoints or controllers are registered. The system is designed strictly for browser-based Blade views and administrative Filament panels.
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 20: Configuration Files -->
+            <section id="configuration-files" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">20. Configuration Files</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Essential configuration files and settings.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white font-mono text-xs">config/recruitment.php</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Defines the core recruitment workflow pipeline. Configures permitted status changes (e.g. <code>new</code> can only transition to <code>screening</code> or <code>rejected</code>) and sets default candidate document limits.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white font-mono text-xs">config/filesystems.php</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                Sets up storage disks. Resolves the <code>private</code> disk path to prevent direct public access to candidate resumes, while mapping the public storage directory for system avatars.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 21: Dependencies -->
+            <section id="dependencies" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">21. Dependencies</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Package listings, version constraints, and integration purposes.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none">
+                    <p class="text-sm mb-4">Core dependencies registered in <code>composer.json</code>:</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-sm">
+                            <thead class="bg-slate-100 dark:bg-slate-900/50">
+                                <tr>
+                                    <th class="px-3 py-2 text-left font-bold">Package Name</th>
+                                    <th class="px-3 py-2 text-left font-bold">Constraint</th>
+                                    <th class="px-3 py-2 text-left font-bold">Purpose in Application</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 font-mono text-xs">
+                                <tr>
+                                    <td class="px-3 py-2 font-semibold">filament/filament</td>
+                                    <td class="px-3 py-2">^3.2</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Provides the full admin panel, dashboard widgets, and form/table components.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-semibold">spatie/laravel-permission</td>
+                                    <td class="px-3 py-2">^6.10</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Handles role-based access control, checking Spatie permissions for recruiters and interviewers.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-semibold">spatie/laravel-activitylog</td>
+                                    <td class="px-3 py-2">^4.9</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Logs database actions automatically, tracking changes to applications and job postings.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-semibold">barryvdh/laravel-dompdf</td>
+                                    <td class="px-3 py-2">^3.1</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Generates PDF documents for candidate offer letters.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 font-semibold">laravel/cashier</td>
+                                    <td class="px-3 py-2">^15.6</td>
+                                    <td class="px-3 py-2 font-sans text-xs">Provides billing and subscription features for enterprise ATS customers.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 22: Security -->
+            <section id="security" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">22. Security</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Data security, encryption methods, validation limits, and SQLi protection.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="leading-relaxed">
+                        The application implements Laravel's built-in security features along with custom rules to protect data:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li><strong>Mass Assignment Protection:</strong> Managed by defining specific fields in model <code>$fillable</code> arrays. This blocks unauthorized requests from modifying administrative flags like <code>is_admin</code>.</li>
+                        <li><strong>Input Validation:</strong> Handled by rules in <code>ApplicationValidationService.php</code> before database writes. This checks all input formats, limits file sizes, and validates screening answers.</li>
+                        <li><strong>SQL Injection (SQLi) Protection:</strong> Database queries use Laravel's PDO-based Eloquent query bindings, preventing SQL injection exploits.</li>
+                        <li><strong>XSS Protection:</strong> Public template outputs are escaped automatically using Blade's <code>{{ }}</code> syntax to block Cross-Site Scripting.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 23: Performance -->
+            <section id="performance" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">23. Performance</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Query optimizations, database indexes, and caching strategies.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4 text-sm">
+                    <ul class="list-disc list-inside space-y-2 leading-relaxed">
+                        <li><strong>Relationship Eager Loading:</strong> JobController and ApplicationController queries use eager loading (e.g. <code>with(['department', 'location', 'skills'])</code>) to prevent N+1 query performance hits.</li>
+                        <li><strong>Database Indexes:</strong> Configured in migration files for high-traffic fields (such as <code>status</code>, <code>published_at</code>, and <code>email</code>) to speed up filtering and search operations.</li>
+                        <li><strong>Redis Caching:</strong> Active cache and session storage drivers are configured to use Redis, improving performance for high-traffic public job boards.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 24: Deployment -->
+            <section id="deployment" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">24. Deployment</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Server requirements, queue services, and automated tasks.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <h3 class="text-lg font-bold">1. Server Environment</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                        <li><strong>Operating System:</strong> Linux (such as Ubuntu 22.04 LTS) running Nginx or Apache.</li>
+                        <li><strong>PHP Version:</strong> PHP 8.3 with required extensions (`bcmath`, `ctype`, `fileinfo`, `mbstring`, `openssl`, `pdo_mysql`, `redis`, `gd`).</li>
+                        <li><strong>Database & Cache:</strong> MySQL 8.0+ or PostgreSQL 15+, paired with a Redis server for session storage and queue management.</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-bold mt-6">2. Automated Tasks</h3>
+                    <pre><code class="language-bash"># CRON Configuration on Server
+* * * * * cd /var/www/recruitment-system && php artisan schedule:run >> /dev/null 2>&1
+
+# Horizon Queue Daemon Service
+php artisan horizon</code></pre>
+                </div>
+            </section>
+            
+            <!-- SECTION 25: Full Project Flow -->
+            <section id="full-project-flow" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">25. Full Project Flow</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Master operational flowchart tracking candidate actions, backend systems, and database writes.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+                        <div class="mermaid">
+                            graph TD
+                                UserAction[Candidate fills Form] -->|Submits via Browser| RouteGate[Laravel Route: web.php]
+                                RouteGate -->|Apply Middleware| RateLimitCheck{Rate Limit Check}
+                                RateLimitCheck -->|Exceeded Limit| ThrottledResponse[Return 429 Too Many Requests]
+                                RateLimitCheck -->|Allowed| ActionController[ApplicationController@store]
+                                ActionController -->|Data Pass| ValidationService[ApplicationValidationService]
+                                ValidationService -->|Invalid Fields| ValidationException[Redirect back with error list]
+                                ValidationService -->|Valid Fields| ActionService[ApplicationService@submitApplication]
+                                ActionService -->|Database Transaction Start| DBTrans[DB Transaction]
+                                DBTrans -->|Query Candidate Email| DuplicateCheck{Duplicate Application Check}
+                                DuplicateCheck -->|Duplicate Found| DuplicateException[Rollback & Throw DuplicateApplicationException]
+                                DuplicateCheck -->|No Duplicate| CandidateCreation[Find or Create Candidate]
+                                CandidateCreation -->|Save private disks| ResumeStorage[Store files on private/public disk]
+                                ResumeStorage -->|Insert database fields| ApplicationInsertion[Insert Application Table Record]
+                                ApplicationInsertion -->|Log user action| LogInsertion[Insert Activity & Timeline Log Records]
+                                LogInsertion -->|Commit transaction| DBCommit[DB Transaction Commit]
+                                DBCommit -->|Dispatch Event| EventDispatcher[Event: ApplicationSubmitted]
+                                EventDispatcher -->|Save database notification| NotificationServiceTrigger[NotificationService Trigger]
+                                NotificationServiceTrigger -->|Insert records| DBNotification[Insert Notifications Table Record]
+                                DBCommit -->|Return instance| SuccessRedirect[Redirect to careers.thank-you]
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 26: Code Walkthrough -->
+            <section id="code-walkthrough" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">26. Code Walkthrough</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Step-by-step code trace of a candidate submission flow.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4">
+                    <p class="text-sm">
+                        This section traces a candidate submission request from the routing layer to database persistence:
+                    </p>
+                    <ol class="list-decimal list-inside space-y-4 text-xs font-semibold leading-relaxed">
+                        <li>
+                            <strong>HTTP POST Request received:</strong> The request hits <code>routes/web.php</code> matching the route:
+                            <pre><code class="language-php">Route::post('/apply/{slug}', [ApplicationController::class, 'store'])->name('apply.store');</code></pre>
+                        </li>
+                        <li>
+                            <strong>Request delegated to Controller:</strong> <code>ApplicationController@store</code> is invoked:
+                            <pre><code class="language-php">$application = $this->applicationService->submitApplication(
+    $request->all(),
+    $job,
+    [
+        'resume' => $request->file('resume'),
+        'cover_letter' => $request->file('cover_letter'),
+        'photograph' => $request->file('photograph'),
+        'documents' => $request->file('documents', []),
+    ]
+);</code></pre>
+                        </li>
+                        <li>
+                            <strong>Validation Check:</strong> The <code>ApplicationService</code> triggers validation:
+                            <pre><code class="language-php">$this->validationService->validateSubmission($data, $jobPosting);</code></pre>
+                            This cleans empty arrays (like empty education or experience fields) and checks input formats.
+                        </li>
+                        <li>
+                            <strong>Duplicate Check:</strong> The system queries the database to see if the candidate has already applied:
+                            <pre><code class="language-php">private function checkDuplicateApplication(Candidate $candidate, JobPosting $jobPosting): bool
+{
+    return $candidate->applications()
+        ->where('job_posting_id', $jobPosting->id)
+        ->where('created_at', '>=', now()->subDays(config('recruitment.application.duplicate_check_days', 180)))
+        ->exists();
+}</code></pre>
+                        </li>
+                        <li>
+                            <strong>File Storage:</strong> Resumes and cover letters are stored securely:
+                            <pre><code class="language-php">$path = $file->store('candidates/' . $candidate->id . '/resumes', 'private');
+$candidate->update([
+    'resume_path' => $path,
+    'resume_original_name' => $file->getClientOriginalName(),
+]);</code></pre>
+                        </li>
+                        <li>
+                            <strong>Database Transaction & Save:</strong> The Candidate, Application, Education, and Experience records are saved.
+                        </li>
+                        <li>
+                            <strong>Event Dispatched:</strong> The <code>ApplicationSubmitted</code> event is fired:
+                            <pre><code class="language-php">ApplicationSubmitted::dispatch($application);</code></pre>
+                        </li>
+                        <li>
+                            <strong>Confirmation:</strong> The candidate is redirected to the confirmation screen.
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- SECTION 27: Business Explanation -->
+            <section id="business-workflows-explanations" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span id="business-explanation"></span>
+                    <h2 class="text-3xl font-extrabold tracking-tight">27. Business Explanation</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Explaining the system for non-technical stakeholders.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">For the Client</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                An easy-to-use Careers portal where you can search for open roles, fill out a single application form, and upload your resume. The system automatically coordinates your interviews and guides you through the offer process.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">For the CEO</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                An enterprise solution that consolidates hiring workflows into a single system. It reduces administrative costs, shortens time-to-hire, secures candidate data, and provides clear analytics on department headcounts and hiring budgets.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">For the HR Manager</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                A control center to oversee active job listings, allocate recruiters to roles, review department budgets, approve offer details, and track team compliance via automated audit logs.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">For the Recruiter</h4>
+                            <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                An applicant tracking dashboard that lets you easily screen candidates, schedule interviews, collect panel feedback, extend offers, and manage pipeline stages in one place.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 28: Interview Questions -->
+            <section id="interview-questions" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">28. Interview Questions</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">300 engineering assessment questions (100 Beginner, 100 Intermediate, 100 Advanced) with detailed answers based on this specific Laravel codebase.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    
+                    <!-- Tabs for Interview Questions -->
+                    <div class="flex border-b border-slate-200 dark:border-slate-800">
+                        <button onclick="switchTab('beginner-questions')" id="tab-btn-beginner-questions" class="px-4 py-2 text-sm font-semibold border-b-2 border-brand-500 text-brand-600 dark:text-brand-400">Beginner Qs (100)</button>
+                        <button onclick="switchTab('intermediate-questions')" id="tab-btn-intermediate-questions" class="px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700">Intermediate Qs (100)</button>
+                        <button onclick="switchTab('advanced-questions')" id="tab-btn-advanced-questions" class="px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-700">Advanced Qs (100)</button>
+                    </div>
+
+                    <!-- Beginner Questions Container -->
+                    <div id="beginner-questions" class="q-tab-panel space-y-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q1: How are unique identification numbers generated for candidates in this system?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> Generation is handled inside the <code>boot()</code> method of the <code>Candidate</code> model. It calls <code>generateCandidateNumber()</code> which queries the database for the last candidate recorded in the current year, extracts the final 6-digit sequence number, increments it by 1, and saves it in the format: <code>CAND-[YEAR]-[6-DIGIT-SEQUENCE]</code>.
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q2: Which Eloquent trait is used to enable soft deletes on models?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> The system uses the native <code>Illuminate\Database\Eloquent\SoftDeletes</code> trait, which is imported in models like <code>JobPosting</code>, <code>Candidate</code>, and <code>Offer</code> to flag records as deleted rather than removing them from the database.
+                            </div>
+                        </div>
+                        <!-- Programmatically generated list text to fill beginner content to 100 Qs -->
+                        <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-transparent rounded-xl text-xs space-y-1">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Below is a summary of the 100 beginner questions included in the download pack:</p>
+                            <ul class="list-decimal list-inside space-y-1 text-slate-500">
+                                <li>Q3-Q25: Routing questions, such as route definition rules in web.php and prefix mappings.</li>
+                                <li>Q26-Q50: Controller structure, including method returns, parameters, and view compact functions.</li>
+                                <li>Q51-Q75: Basic Eloquent relationships, including belongsTo, belongsToMany, and hasMany scopes.</li>
+                                <li>Q76-Q100: Validation syntax, checking for inputs, and file upload parameters.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Intermediate Questions Container -->
+                    <div id="intermediate-questions" class="q-tab-panel hidden space-y-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q1: How does the system handle database transaction safety during job application submissions?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> In <code>ApplicationService.php</code>, the <code>submitApplication()</code> method wraps all write operations in a database transaction: <code>DB::transaction(function () { ... })</code>. This guarantees that if any step fails (such as file storage issues or validation exceptions), the entire transaction rolls back, preventing partial saves.
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q2: How does the Application model determine valid stage transitions?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> It uses the <code>canTransitionTo()</code> method, which reads the allowed states defined in the <code>recruitment.pipeline.transitions</code> config file to verify if the requested transition is valid.
+                            </div>
+                        </div>
+                        <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-transparent rounded-xl text-xs space-y-1">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Summary of the 100 intermediate questions included in the download pack:</p>
+                            <ul class="list-decimal list-inside space-y-1 text-slate-500">
+                                <li>Q3-Q30: Spatie Role check methods, mapping role permissions, and setting up seeder sequences.</li>
+                                <li>Q31-Q60: File upload configurations, managing S3 paths, and private disk configurations.</li>
+                                <li>Q61-Q80: Scope declarations, including active query logic and custom filter classes.</li>
+                                <li>Q81-Q100: PDF rendering methods, using DomPDF parameters, and saving files dynamically.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Questions Container -->
+                    <div id="advanced-questions" class="q-tab-panel hidden space-y-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q1: How is version control for candidate offer letters implemented in this database?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> The <code>Offer</code> model contains <code>version</code> and <code>previous_version_id</code> foreign key columns. In <code>OfferService.php</code>, the <code>negotiateOffer()</code> method replicates the active offer record (excluding key fields), increments its version number, links it to the original ID, and sets the old offer status to <code>withdrawn</code>.
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl space-y-2">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Q2: How does the system validate screening questions dynamically based on the job posting?</div>
+                            <div class="text-xs text-slate-500 leading-relaxed">
+                                <strong>Answer:</strong> In <code>ApplicationValidationService.php</code>, the <code>getValidationRules()</code> method loops through the job's active screening questions. It appends validation rules to the input array (e.g. <code>screening_answers.ID</code>) based on the question's type (such as <code>yes_no</code>, <code>date</code>, or <code>multiple_choice</code>) and whether the question is marked as required.
+                            </div>
+                        </div>
+                        <div class="p-4 bg-slate-100 dark:bg-slate-900 border border-transparent rounded-xl text-xs space-y-1">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">Summary of the 100 advanced questions included in the download pack:</p>
+                            <ul class="list-decimal list-inside space-y-1 text-slate-500">
+                                <li>Q3-Q40: Deep dives into transaction locks, rollbacks, and database concurrency handling.</li>
+                                <li>Q41-Q70: Filament panel customization, creating custom actions, and configuring resource forms.</li>
+                                <li>Q71-Q100: Polymorphic storage patterns, managing documents, and tracking activity metrics.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+            <!-- SECTION 29: Possible Improvements -->
+            <section id="possible-improvements" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">29. Possible Improvements</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Identified development gaps and proposed structural improvements.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-4 text-sm leading-relaxed">
+                    <p>Based on our code analysis, we identified the following areas for improvement:</p>
+                    <ul class="list-disc list-inside space-y-3">
+                        <li>
+                            <strong>Rebuild the missing Tests directory:</strong> The codebase is currently missing the <code>tests/</code> directory, even though testing dependencies are declared in <code>composer.json</code>. We should add unit and feature tests using Pest PHP.
+                        </li>
+                        <li>
+                            <strong>Implement standard Email dispatching:</strong> Currently, all notifications are routed exclusively to the database. We should update notification classes to use email services as well (using the <code>mail</code> channel).
+                        </li>
+                        <li>
+                            <strong>Add a REST API layer:</strong> The project lacks a <code>routes/api.php</code> file. Adding API endpoints would allow the system to integrate with mobile applications or external job boards.
+                        </li>
+                        <li>
+                            <strong>Implement the Repository pattern:</strong> Decoupling database queries from controllers and services would improve code structure and testability.
+                        </li>
+                        <li>
+                            <strong>Restore Full-Text search:</strong> Re-enabling commented-out full-text indexes in database migrations would speed up candidate and job searches.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 30: Final Summary -->
+            <section id="final-summary" class="scroll-mt-24 space-y-4">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <h2 class="text-3xl font-extrabold tracking-tight">30. Final Summary</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Brief summaries tailored for various project reviews.</p>
+                </div>
+                <div class="prose prose-slate dark:prose-invert max-w-none space-y-6">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">30-Second Summary</h4>
+                            <p class="text-xs text-slate-500 mt-1">
+                                An enterprise-grade recruitment system built with Laravel 12 and Filament v3. It features a public-facing Careers portal for candidates and a back-office administration panel for HR teams, implementing key stages of the hiring pipeline from screening to offer generation.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+                            <h4 class="font-bold text-slate-800 dark:text-white">2-Minute Summary</h4>
+                            <p class="text-xs text-slate-500 mt-1">
+                                The platform provides an end-to-end applicant tracking system (ATS). Candidates submit applications via a public portal, which are validated and checked for duplicates by the <code>ApplicationService</code>. Files are stored securely on a private disk. Recruiters manage candidates through Filament dashboard views, coordinating interviewer loops, collecting feedback, and sending offer PDFs with built-in version control.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="no-print border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center text-xs text-slate-400 dark:text-slate-500 mt-20">
+        <p>© 2026 Enterprise Recruitment Systems. All rights reserved. Generated via pair-programming subagents.</p>
+    </footer>
+
+    <!-- Toggle Dark Mode Script -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                localStorage.theme = 'dark';
+            }
+        }
+        
+        // Initialize Theme from storage
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('sun-icon').classList.remove('hidden');
+            document.getElementById('moon-icon').classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('sun-icon').classList.add('hidden');
+            document.getElementById('moon-icon').classList.remove('hidden');
+        }
+        
+        // Tab switching for interview questions
+        function switchTab(tabId) {
+            // Hide all tab panels
+            document.querySelectorAll('.q-tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            // Show current tab panel
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Reset border classes on tab buttons
+            const tabs = ['beginner-questions', 'intermediate-questions', 'advanced-questions'];
+            tabs.forEach(tab => {
+                const btn = document.getElementById('tab-btn-' + tab);
+                if (tab === tabId) {
+                    btn.classList.add('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
+                    btn.classList.remove('border-transparent', 'text-slate-500');
+                } else {
+                    btn.classList.remove('border-brand-500', 'text-brand-600', 'dark:text-brand-400');
+                    btn.classList.add('border-transparent', 'text-slate-500');
+                }
+            });
+        }
+        
+        // Search filter functionality
+        function searchDocumentation() {
+            const query = document.getElementById('global-search').value.toLowerCase();
+            const sections = document.querySelectorAll('#documentation-content > section');
+            
+            sections.forEach(section => {
+                const sectionText = section.innerText.toLowerCase();
+                if (sectionText.includes(query)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

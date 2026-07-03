@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Recruitment | Careers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-900">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#home" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-brand-700 to-brand-500 bg-clip-text text-transparent">Enterprise Recruitment</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-brand-700 font-medium">Home</a>
+                    <a href="#jobs" class="nav-link text-gray-600 hover:text-brand-700 font-medium transition">Open Positions</a>
+                    <a href="#about" class="nav-link text-gray-600 hover:text-brand-700 font-medium transition">About Us</a>
+                    <a href="#culture" class="nav-link text-gray-600 hover:text-brand-700 font-medium transition">Culture</a>
+                    <a href="#jobs" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-lg shadow-brand-500/25">View Jobs</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden flex items-center p-2 text-gray-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 px-4 py-2">
+            <a href="#home" class="block py-2 text-gray-600">Home</a>
+            <a href="#jobs" class="block py-2 text-gray-600">Open Positions</a>
+            <a href="#about" class="block py-2 text-gray-600">About Us</a>
+            <a href="#culture" class="block py-2 text-gray-600">Culture</a>
+        </div>
+    </nav>
+
+    <!-- HOME SECTION -->
+    <section id="home" class="page-section pt-16">
+        <!-- Hero -->
+        <div class="gradient-hero relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"><svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none"><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/></pattern><rect width="100" height="100" fill="url(#grid)"/></svg></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative">
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
+                        <span class="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></span>
+                        <span class="text-sm text-white/90">We're hiring! <span id="hero-job-count">12</span> open positions</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">Build Your Career With <span class="text-teal-300">Purpose</span></h1>
+                    <p class="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">Join a team where innovation meets impact. We believe in nurturing talent, embracing diversity, and creating an environment where everyone can thrive.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#jobs" class="bg-white text-brand-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-xl">View Open Positions</a>
+                        <a href="#about" class="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition">Learn About Us</a>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0"><svg viewBox="0 0 1440 120" fill="none"><path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#F9FAFB"/></svg></div>
+        </div>
+
+        <!-- Stats -->
+        <div class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center"><div class="text-4xl font-bold text-brand-700 mb-2">500+</div><div class="text-gray-600">Team Members</div></div>
+                    <div class="text-center"><div class="text-4xl font-bold text-brand-700 mb-2">30+</div><div class="text-gray-600">Countries</div></div>
+                    <div class="text-center"><div class="text-4xl font-bold text-brand-700 mb-2">$50M+</div><div class="text-gray-600">Funding Raised</div></div>
+                    <div class="text-center"><div class="text-4xl font-bold text-brand-700 mb-2">4.8</div><div class="text-gray-600">Employee Rating</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Jobs -->
+        <div class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-14">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Opportunities</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Discover roles that match your skills and passion.</p>
+                </div>
+                <div id="featured-jobs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div class="text-center mt-10">
+                    <a href="#jobs" class="inline-flex items-center text-brand-700 font-semibold hover:text-brand-800 transition">View All Positions<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Join -->
+        <div class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-14">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Join Us?</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">We offer a workplace that puts people first.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 mx-auto bg-emerald-50 rounded-2xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Competitive Compensation</h3>
+                        <p class="text-gray-600">Above-market salaries, performance bonuses, and equity options.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 mx-auto bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Growth & Learning</h3>
+                        <p class="text-gray-600">Annual learning budget, mentorship programs, and clear career progression.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 mx-auto bg-purple-50 rounded-2xl flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Health & Wellness</h3>
+                        <p class="text-gray-600">Comprehensive health insurance, mental health support, and unlimited PTO.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOBS LISTING SECTION -->
+    <section id="jobs" class="page-section hidden pt-16">
+        <div class="gradient-hero py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">Open Positions</h1>
+                <p class="text-lg text-white/80">Find the perfect role that matches your skills and passion.</p>
+            </div>
+        </div>
+        <div class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap gap-4 items-end">
+                    <div class="flex-1 min-w-[200px]">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                        <div class="relative">
+                            <input type="text" id="job-search" placeholder="Job title, skills, or keywords..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+                            <svg class="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                        <select id="dept-filter" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 bg-white"><option value="">All</option></select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <select id="loc-filter" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 bg-white"><option value="">All</option></select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                        <select id="type-filter" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 bg-white"><option value="">All</option><option value="full_time">Full Time</option><option value="contract">Contract</option><option value="internship">Internship</option></select>
+                    </div>
+                    <button onclick="filterJobs()" class="bg-brand-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-brand-700 transition">Filter</button>
+                    <button onclick="resetFilters()" class="bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg font-medium hover:bg-gray-200 transition">Reset</button>
+                </div>
+            </div>
+        </div>
+        <div class="py-12 bg-gray-50 min-h-[500px]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-gray-600 mb-6"><span class="font-semibold text-gray-900" id="job-count">0</span> positions found</p>
+                <div id="jobs-list" class="space-y-4"></div>
+                <div id="jobs-empty" class="hidden text-center py-16">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">No positions found</h3>
+                    <p class="text-gray-500">Try adjusting your search criteria.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOB DETAIL SECTION -->
+    <section id="job-detail" class="page-section hidden pt-16">
+        <div class="gradient-hero py-12" id="job-detail-header"></div>
+        <div class="py-12 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-8" id="job-detail-main"></div>
+                    <div class="space-y-6" id="job-detail-sidebar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPLICATION FORM SECTION -->
+    <section id="apply" class="page-section hidden pt-16">
+        <div class="gradient-hero py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <a href="#jobs" class="inline-flex items-center text-white/80 hover:text-white mb-4 transition" onclick="showSection('jobs')">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>Back to Jobs
+                </a>
+                <h1 class="text-3xl font-bold text-white" id="apply-job-title">Apply Now</h1>
+            </div>
+        </div>
+        <div class="py-12 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Progress -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between relative">
+                        <div class="absolute left-0 right-0 top-1/2 h-0.5 bg-gray-200 -z-10"></div>
+                        <div class="step-ind w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium step-active" data-step="0">1</div>
+                        <div class="step-ind w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium step-pending" data-step="1">2</div>
+                        <div class="step-ind w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium step-pending" data-step="2">3</div>
+                        <div class="step-ind w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium step-pending" data-step="3">4</div>
+                        <div class="step-ind w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-medium step-pending" data-step="4">5</div>
+                    </div>
+                    <div class="flex justify-between mt-2"><span class="text-xs text-gray-500 w-10 text-center">Personal</span><span class="text-xs text-gray-500 w-10 text-center">Contact</span><span class="text-xs text-gray-500 w-10 text-center">Experience</span><span class="text-xs text-gray-500 w-10 text-center">Documents</span><span class="text-xs text-gray-500 w-10 text-center">Review</span></div>
+                </div>
+
+                <form id="application-form" onsubmit="submitApplication(event)">
+                    <!-- Step 1: Personal -->
+                    <div class="form-step active" data-step="0">
+                        <div class="bg-white rounded-xl border border-gray-200 p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Personal Information</h2>
+                            <p class="text-gray-500 text-sm mb-6">Tell us about yourself</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">First Name *</label><input type="text" name="first_name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Middle Name</label><input type="text" name="middle_name" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label><input type="text" name="last_name" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Gender</label><select name="gender" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 bg-white"><option value="">Select</option><option value="male">Male</option><option value="female">Female</option><option value="non_binary">Non-Binary</option></select></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label><input type="date" name="dob" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Nationality</label><input type="text" name="nationality" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 2: Contact -->
+                    <div class="form-step" data-step="1">
+                        <div class="bg-white rounded-xl border border-gray-200 p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Contact Information</h2>
+                            <p class="text-gray-500 text-sm mb-6">How can we reach you?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Email *</label><input type="email" name="email" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label><input type="tel" name="phone" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                            </div>
+                            <div class="mt-4"><label class="block text-sm font-medium text-gray-700 mb-1">Address</label><textarea name="address" rows="3" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></textarea></div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">City</label><input type="text" name="city" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">State</label><input type="text" name="state" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Country</label><input type="text" name="country" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label><input type="text" name="postal" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Step 3: Experience -->
+                    <div class="form-step" data-step="2">
+                        <div class="bg-white rounded-xl border border-gray-200 p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Work Experience</h2>
+                            <p class="text-gray-500 text-sm mb-6">Tell us about your professional journey</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Current Company</label><input type="text" name="current_company" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Current Designation</label><input type="text" name="current_designation" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Total Experience (years)</label><input type="number" name="experience" step="0.5" min="0" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-1">Expected Salary (USD)</label><input type="number" name="expected_salary" min="0" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                            </div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-1">Key Skills</label><input type="text" name="skills" placeholder="e.g., JavaScript, Python, React, Node.js" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                        </div>
+                    </div>
+                    <!-- Step 4: Documents -->
+                    <div class="form-step" data-step="3">
+                        <div class="bg-white rounded-xl border border-gray-200 p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Documents</h2>
+                            <p class="text-gray-500 text-sm mb-6">Upload your resume and cover letter</p>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Resume / CV *</label>
+                                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-brand-500 hover:bg-brand-50 transition cursor-pointer" onclick="document.getElementById('resume').click()">
+                                        <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required class="hidden" onchange="updateFileLabel(this, 'resume-label')">
+                                        <svg class="w-10 h-10 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                        <p class="text-gray-600 font-medium" id="resume-label">Click to upload resume</p>
+                                        <p class="text-gray-400 text-sm mt-1">PDF, DOC, or DOCX up to 10MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6"><label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn Profile</label><input type="url" name="linkedin" placeholder="https://linkedin.com/in/..." class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                            <div class="mt-4"><label class="block text-sm font-medium text-gray-700 mb-1">Portfolio / Website</label><input type="url" name="portfolio" placeholder="https://..." class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500"></div>
+                        </div>
+                    </div>
+                    <!-- Step 5: Review -->
+                    <div class="form-step" data-step="4">
+                        <div class="bg-white rounded-xl border border-gray-200 p-8">
+                            <h2 class="text-xl font-bold text-gray-900 mb-1">Review & Submit</h2>
+                            <p class="text-gray-500 text-sm mb-6">Please review your application before submitting</p>
+                            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6"><p class="text-amber-800 text-sm">You're applying for <strong id="review-job-title">this position</strong>.</p></div>
+                            <div class="space-y-3">
+                                <label class="flex items-start"><input type="checkbox" required class="mt-1 mr-3 w-4 h-4 text-brand-600 rounded"><span class="text-sm text-gray-600">I confirm that all information provided is accurate. *</span></label>
+                                <label class="flex items-start"><input type="checkbox" required class="mt-1 mr-3 w-4 h-4 text-brand-600 rounded"><span class="text-sm text-gray-600">I agree to the Privacy Policy and consent to processing my data for recruitment. *</span></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flex justify-between mt-8">
+                        <button type="button" id="prev-btn" class="hidden bg-white border border-gray-300 text-gray-700 px-6 py-2.5 rounded-lg font-medium hover:bg-gray-50 transition" onclick="changeStep(-1)">Previous</button>
+                        <div class="flex-1"></div>
+                        <button type="button" id="next-btn" class="bg-brand-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-brand-700 transition" onclick="changeStep(1)">Next Step</button>
+                        <button type="submit" id="submit-btn" class="hidden bg-brand-600 text-white px-8 py-2.5 rounded-lg font-medium hover:bg-brand-700 transition">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- THANK YOU SECTION -->
+    <section id="thank-you" class="page-section hidden pt-16">
+        <div class="min-h-[70vh] flex items-center justify-center py-20">
+            <div class="max-w-2xl mx-auto px-4 text-center">
+                <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Application Submitted Successfully!</h1>
+                <p class="text-lg text-gray-600 mb-8">Thank you for your interest. We've received your application.</p>
+                <div class="bg-gray-50 rounded-xl border border-gray-200 p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div><p class="text-sm text-gray-500">Application Number</p><p class="font-mono font-bold text-brand-700 text-lg" id="thank-app-number">APP-2026-000001</p></div>
+                        <div><p class="text-sm text-gray-500">Applied On</p><p class="font-medium text-gray-900" id="thank-app-date"></p></div>
+                        <div><p class="text-sm text-gray-500">Position</p><p class="font-medium text-gray-900" id="thank-job-title"></p></div>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#jobs" onclick="showSection('jobs')" class="bg-brand-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-brand-700 transition">Browse More Jobs</a>
+                    <a href="#home" onclick="showSection('home')" class="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-xl font-medium hover:bg-gray-50 transition">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="page-section hidden pt-16">
+        <div class="gradient-hero py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-bold text-white mb-4">About Us</h1>
+                <p class="text-xl text-white/80 max-w-2xl">Building the future of technology with exceptional people.</p>
+            </div>
+        </div>
+        <div class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="prose max-w-none text-gray-600 text-lg leading-relaxed space-y-6">
+                    <p>Enterprise Recruitment is a leading technology company dedicated to building innovative solutions that transform industries. Founded in 2015, we've grown from a small startup to a global organization with over 500 team members across 30+ countries.</p>
+                    <p>Our mission is to empower businesses through cutting-edge technology while fostering an inclusive workplace where every individual can thrive. We believe that diverse teams create better products, and we're committed to building a team that reflects the world we serve.</p>
+                    <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Our Values</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+                        <div class="border border-gray-200 rounded-xl p-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">Innovation First</h4>
+                            <p class="text-gray-600 text-base">We push boundaries and challenge the status quo to create breakthrough solutions.</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">People Matter</h4>
+                            <p class="text-gray-600 text-base">Our people are our greatest asset. We invest in their growth and well-being.</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">Integrity Always</h4>
+                            <p class="text-gray-600 text-base">We operate with transparency, honesty, and ethical standards in everything we do.</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-6">
+                            <h4 class="font-semibold text-gray-900 mb-2">Impact Driven</h4>
+                            <p class="text-gray-600 text-base">We measure success by the positive impact we create for our customers and communities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CULTURE SECTION -->
+    <section id="culture" class="page-section hidden pt-16">
+        <div class="gradient-hero py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-bold text-white mb-4">Our Culture</h1>
+                <p class="text-xl text-white/80 max-w-2xl">A workplace where you can be yourself and do your best work.</p>
+            </div>
+        </div>
+        <div class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Collaborative Environment</h3>
+                        <p class="text-gray-600">Work with talented individuals who support and inspire each other every day.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Work-Life Balance</h3>
+                        <p class="text-gray-600">Flexible schedules, remote work options, and unlimited PTO to recharge.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Continuous Growth</h3>
+                        <p class="text-gray-600">Learning budget, conferences, workshops, and clear career progression paths.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Global Team</h3>
+                        <p class="text-gray-600">Collaborate with colleagues from over 30 countries and diverse backgrounds.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Health & Wellness</h3>
+                        <p class="text-gray-600">Comprehensive health coverage, mental health support, and wellness programs.</p>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                        <div class="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Make an Impact</h3>
+                        <p class="text-gray-600">Your work directly impacts millions of users around the world.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-xl font-bold">Enterprise Recruitment</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm">Join our world-class team and build the future with us. We're always looking for talented individuals.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#jobs" class="text-gray-400 hover:text-white transition">All Jobs</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#culture" class="text-gray-400 hover:text-white transition">Our Culture</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Enterprise Recruitment. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
